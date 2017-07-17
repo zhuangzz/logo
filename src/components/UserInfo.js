@@ -10,6 +10,13 @@ export default class UserInfo extends React.Component{
 			user:null
 		}
 	}
+  componentWillReceiveProps(nextProps){
+   // console.log(nextProps);
+   let loginname = nextProps.match.params.loginname
+   axios.get(`${url}/user/${loginname}`)
+		.then(res=>this.setState({user:res.data.data}))
+		.catch(err=>message.error("用户信息获取失败"))
+  }
 	componentDidMount(){
 		let loginname=this.props.match.params.loginname
 		axios.get(`${url}/user/${loginname}`)
